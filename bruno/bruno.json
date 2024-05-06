@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "nesjs-iluvcoffee",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
