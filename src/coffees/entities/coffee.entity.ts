@@ -25,7 +25,7 @@ export class Coffee {
   recommendations: number;
 
   @JoinTable() // default is not nullable, i.e. required
-  @ManyToMany((type) => Flavor, (flavor) => flavor.coffees, {
+  @ManyToMany(() => Flavor, (flavor) => flavor.coffees, {
     cascade: true,
   })
   flavors: Flavor[];
