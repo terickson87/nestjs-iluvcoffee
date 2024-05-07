@@ -4,7 +4,6 @@ import {
   ExceptionFilter,
   HttpException,
 } from '@nestjs/common';
-import { timeStamp } from 'console';
 import { Response } from 'express';
 
 @Catch(HttpException)
