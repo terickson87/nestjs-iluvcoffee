@@ -5,7 +5,13 @@ meta {
 }
 
 patch {
-  url: http://localhost:3000/coffees/
-  body: none
+  url: http://localhost:3000/coffees/1
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "name": "Coffee Update"
+  }
 }

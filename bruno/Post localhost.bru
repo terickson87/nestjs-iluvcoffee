@@ -6,6 +6,14 @@ meta {
 
 post {
   url: http://localhost:3000/coffees/
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "name": "Coffee #4",
+    "brand": "Nest",
+    "flavors": ["caramel", "chocolate"]
+  }
 }
