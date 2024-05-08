@@ -6,7 +6,7 @@ import { AppModule } from './../src/app.module';
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -21,5 +21,9 @@ describe('AppController (e2e)', () => {
       .set('Authorization', process.env.API_KEY)
       .expect(200)
       .expect('{"data":"Hello Nest!"}');
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });
