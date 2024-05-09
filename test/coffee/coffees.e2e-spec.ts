@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 import { CreateCoffeeDto } from '../../src/coffees/dto/create-coffee.dto';
 import { containCoffeeObject } from '../util';
+import { UpdateCoffeeDto } from '../../src/coffees/dto/update-coffee.dto';
 
 describe('[Feature Coffees - /coffees', () => {
   const COFFEES_ENDPOINT = '/coffees';
@@ -110,7 +111,20 @@ describe('[Feature Coffees - /coffees', () => {
     expect(resp.body).toEqual(containCoffeeObject(coffee1));
   });
 
-  it.todo('Update one [PATCH /:id]');
+  it('Update one [PATCH /:id]', async () => {
+    const updateCoffeeDto: UpdateCoffeeDto = {
+      ...coffee1,
+      name: 'New and Improved Shipwreck Roast',
+    };
+
+    let resp = await request(app.getHttpServer())
+      .patch(COFFEES_ENDPOINT + '/1')
+      .send(updateCoffeeDto);
+    expect(resp.body.name).toEqual(updateCoffeeDto.name);
+
+    resp = await request(app.getHttpServer()).get(COFFEES_ENDPOINT + '/1');
+    expect(resp.body.name).toEqual(updateCoffeeDto.name);
+  });
 
   it.todo('Delete one [DELETE /:id]');
 
