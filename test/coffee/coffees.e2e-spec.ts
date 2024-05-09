@@ -102,7 +102,13 @@ describe('[Feature Coffees - /coffees', () => {
     });
   });
 
-  it.todo('Get one [GET /:id]');
+  it('Get one [GET /:id]', async () => {
+    const resp = await request(app.getHttpServer()).get(
+      COFFEES_ENDPOINT + '/1',
+    );
+
+    expect(resp.body).toEqual(containCoffeeObject(coffee1));
+  });
 
   it.todo('Update one [PATCH /:id]');
 
