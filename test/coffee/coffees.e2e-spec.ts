@@ -4,7 +4,7 @@ import { CoffeesModule } from '../../src/coffees/coffees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 import { CreateCoffeeDto } from '../../src/coffees/dto/create-coffee.dto';
-import { containCoffeeObject, containsArrayOfCoffeeObjects } from '../util';
+import { containCoffeeObject } from '../util';
 
 describe('[Feature Coffees - /coffees', () => {
   const COFFEES_ENDPOINT = '/coffees';
@@ -83,26 +83,17 @@ describe('[Feature Coffees - /coffees', () => {
     // Arrange
     await Promise.all(
       allCoffee.map(async (iCof) => {
-        console.log(`POSTing iCof: ${iCof.name}.`);
         await request(app.getHttpServer())
           .post(COFFEES_ENDPOINT)
           .send(iCof as CreateCoffeeDto)
           .expect(HttpStatus.CREATED);
-        console.log(`iCof: ${iCof.name} POSTED.`);
-        const resp = await request(app.getHttpServer()).get(COFFEES_ENDPOINT);
-        console.log(`GET all after: ${JSON.stringify(resp.body)}`);
-        console.log(`body length: ${resp.body.length}`);
       }),
     );
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Act
     const resp = await request(app.getHttpServer()).get(COFFEES_ENDPOINT);
 
     // Assert
-    console.log(`body length: ${resp.body.length}`);
-    console.log(JSON.stringify(resp.body));
     expect(resp.body.length).toBeGreaterThan(0);
     allCoffee.forEach((element) => {
       expect(resp.body as CreateCoffeeDto[]).toContainEqual(
