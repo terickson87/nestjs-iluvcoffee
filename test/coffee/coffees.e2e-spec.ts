@@ -126,7 +126,15 @@ describe('[Feature Coffees - /coffees', () => {
     expect(resp.body.name).toEqual(updateCoffeeDto.name);
   });
 
-  it.todo('Delete one [DELETE /:id]');
+  it('Delete one [DELETE /:id]', async () => {
+    let resp = await request(app.getHttpServer()).delete(
+      COFFEES_ENDPOINT + '/1',
+    );
+    expect(resp.statusCode).toEqual(HttpStatus.OK);
+
+    resp = await request(app.getHttpServer()).get(COFFEES_ENDPOINT + '/1');
+    expect(resp.statusCode).toEqual(HttpStatus.NOT_FOUND);
+  });
 
   afterAll(async () => {
     await app.close();
